@@ -1,0 +1,367 @@
+/* Happy 18th, Sevinah — pink / blush / gold theme */
+:root {
+  --w: clamp(160px, min(88vw, calc((100vh - 210px) * 0.588)), 420px); /* cake width, scales with screen */
+  --u: calc(var(--w) / 200);                                           /* 1 cake unit */
+  --rose: #ff8fb8;
+  --blush: #ffd1e6;
+  --gold: #f7d9a0;
+}
+* { box-sizing: border-box; }
+html { background: #2e0f33; }
+html, body { width: 100%; min-height: 100%; }
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: "Quicksand", sans-serif;
+  color: #fff;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(255, 140, 200, 0.32), transparent 60%),
+    radial-gradient(ellipse at 50% 110%, rgba(247, 217, 160, 0.25), transparent 55%),
+    linear-gradient(170deg, #2e0f33 0%, #5c1f52 55%, #8c3a72 100%);
+}
+
+/* ---------- stage + cake ---------- */
+.stage { position: relative; width: var(--w); height: calc(var(--u) * 340); margin: 0 auto; }
+#cake {
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * -160);
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: hidden;
+  filter: drop-shadow(0 calc(var(--u) * 6) calc(var(--u) * 10) rgba(60, 0, 40, 0.35));
+}
+
+.candle {
+  position: absolute;
+  top: calc(var(--u) * 213);
+  left: 50%;
+  width: calc(var(--u) * 7);
+  height: calc(var(--u) * 42);
+  margin-left: calc(var(--u) * -3.5);
+  border-radius: 10px;
+  background: repeating-linear-gradient(-45deg, #fff 0 calc(var(--u) * 4), #ff8db8 calc(var(--u) * 4) calc(var(--u) * 8));
+  transform: translateY(-100vh);
+  backface-visibility: hidden;
+  animation: in 500ms 6s ease-out forwards;
+  cursor: pointer;
+  z-index: 100;
+}
+/* bigger invisible tap area so it's easy to tap on phones */
+.candle::before {
+  content: "";
+  position: absolute;
+  inset: calc(var(--u) * -34) calc(var(--u) * -20) 0;
+}
+
+.fire {
+  position: absolute;
+  top: calc(var(--u) * -22);
+  left: 50%;
+  width: calc(var(--u) * 8);
+  height: calc(var(--u) * 20);
+  margin-left: calc(var(--u) * -4);
+  border-radius: 100%;
+}
+.fire:nth-child(1) { animation: fire 2s 6.5s infinite; }
+.fire:nth-child(2) { animation: fire 1.5s 6.5s infinite; }
+.fire:nth-child(3) { animation: fire 1s 6.5s infinite; }
+.fire:nth-child(4) { animation: fire 0.5s 6.5s infinite; }
+.fire:nth-child(5) { animation: fire 0.2s 6.5s infinite; }
+
+@keyframes fire {
+  0%, 100% {
+    background: rgba(255, 226, 120, 0.55);
+    box-shadow: 0 0 calc(var(--u) * 40) calc(var(--u) * 10) rgba(255, 190, 220, 0.3);
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    background: rgba(255, 80, 150, 0.12);
+    box-shadow: 0 0 calc(var(--u) * 40) calc(var(--u) * 20) rgba(255, 190, 220, 0.3);
+    transform: translateY(calc(var(--u) * -20)) scale(0);
+  }
+}
+@keyframes in { to { transform: translateY(0); } }
+
+/* ---------- cake decorations (appear right after the cake lands) ---------- */
+.decor { position: absolute; inset: 0; pointer-events: none; font-size: calc(var(--u) * 18); }
+.d {
+  position: absolute;
+  line-height: 1;
+  opacity: 0;
+  translate: -50% -50%;
+  animation: pop 0.7s 6.7s cubic-bezier(0.3, 1.7, 0.5, 1) forwards;
+}
+.berry  { top: calc(var(--u) * 254); font-size: calc(var(--u) * 22); translate: -50% -80%; }
+.flower { top: calc(var(--u) * 253); font-size: calc(var(--u) * 17); translate: -50% -75%; animation-delay: 6.85s; }
+.cherry { top: calc(var(--u) * 256); font-size: calc(var(--u) * 17); translate: -50% -80%; animation-delay: 7s; }
+.bow    { left: 50%; top: calc(var(--u) * 285); font-size: calc(var(--u) * 34); animation-delay: 7.1s; }
+.heart  { top: calc(var(--u) * 287); font-size: calc(var(--u) * 14); animation-delay: 7.2s; }
+.spark  { font-size: calc(var(--u) * 14); animation: pop 0.7s 7.2s cubic-bezier(0.3, 1.7, 0.5, 1) forwards, twinkle 2s 8s ease-in-out infinite; }
+.pearls {
+  position: absolute;
+  left: 6.5%;
+  right: 6.5%;
+  top: calc(var(--u) * 314);
+  height: calc(var(--u) * 5);
+  background: radial-gradient(circle, #fff 0 42%, #ffd3e5 46% 62%, transparent 66%) 0 0 / calc(var(--u) * 9) 100% repeat-x;
+  opacity: 0;
+  animation: fade 0.8s 6.7s forwards;
+}
+@keyframes pop {
+  from { opacity: 0; scale: 0.2; }
+  to   { opacity: 1; scale: 1; }
+}
+@keyframes fade { to { opacity: 1; } }
+@keyframes twinkle { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: 0.25; scale: 0.6; } }
+
+/* ---------- text ---------- */
+.text {
+  position: relative;
+  z-index: 50;
+  padding: 0 1rem 2.5rem;
+  text-align: center;
+  opacity: 0;
+  animation: fade 1s 6.8s forwards;
+}
+.text h1 {
+  margin: 0 0 4px;
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(2rem, 9vw, 3.6rem);
+  letter-spacing: 0.04em;
+  background: linear-gradient(100deg, #fff 20%, #ffb3d4 45%, #f7d9a0 55%, #fff 80%) 0 0 / 220% 100%;
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+.name {
+  margin: 0;
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  color: var(--blush);
+  text-shadow: 0 0 18px rgba(255, 143, 184, 0.7);
+}
+.hint { margin: 0.6rem 0 0; font-size: 0.95rem; opacity: 0.85; }
+.btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; margin-top: 1.1rem; }
+.btns button {
+  padding: 0.65rem 1.2rem;
+  font: 600 0.95rem "Quicksand", sans-serif;
+  color: #fff;
+  background: rgba(255, 143, 184, 0.25);
+  border: 1px solid rgba(255, 209, 230, 0.6);
+  border-radius: 999px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: transform 0.2s, background 0.2s;
+}
+.btns button:hover { transform: translateY(-2px) scale(1.04); background: rgba(255, 143, 184, 0.45); }
+.btns button:focus-visible, .x:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+@keyframes shimmer { to { background-position: -220% 0; } }
+
+/* wish message after blowing the candle */
+.wish {
+  position: fixed;
+  left: 50%;
+  top: 20%;
+  z-index: 200;
+  width: 90%;
+  text-align: center;
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(2rem, 8vw, 3.4rem);
+  color: #fff;
+  text-shadow: 0 0 20px #ff8fb8, 0 0 40px #ff8fb8;
+  opacity: 0;
+  translate: -50% 0;
+  pointer-events: none;
+}
+.wish.show { animation: wishIn 3.2s ease-out; }
+@keyframes wishIn {
+  0%   { opacity: 0; transform: translateY(20px) scale(0.9); }
+  20%  { opacity: 1; transform: none; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-20px); }
+}
+
+/* letter popup */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(40, 8, 38, 0.6);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.modal.open { opacity: 1; visibility: visible; }
+.card {
+  position: relative;
+  width: min(100%, 430px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 1.8rem 1.6rem 1.4rem;
+  color: #5a1b45;
+  line-height: 1.65;
+  background: linear-gradient(160deg, #fff, #ffe6f0);
+  border: 2px solid #f6c6dc;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(60, 0, 40, 0.5);
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.35s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+.modal.open .card { transform: none; }
+.card h2 { margin: 0 0 0.6rem; font: 400 2.2rem "Great Vibes", cursive; color: #c2336f; }
+.card p { margin: 0 0 0.8rem; }
+.card .sig { margin: 0; text-align: right; font: 400 1.7rem "Great Vibes", cursive; color: #c2336f; }
+.x { position: absolute; top: 0.5rem; right: 0.8rem; font-size: 1.8rem; line-height: 1; color: #c2336f; background: none; border: 0; cursor: pointer; }
+
+/* ---------- bunting, stars, floating hearts ---------- */
+.bunting {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  height: 58px;
+  padding: 0 2%;
+  pointer-events: none;
+}
+.bunting::before { content: ""; position: absolute; top: 6px; left: 0; right: 0; height: 2px; background: rgba(255, 255, 255, 0.45); }
+.flag {
+  width: clamp(22px, 5.5vw, 38px);
+  height: clamp(28px, 7vw, 48px);
+  margin-top: 6px;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: 50% 0;
+  animation: sway 3s ease-in-out infinite alternate;
+}
+@keyframes sway { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+
+.stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle var(--t, 3s) ease-in-out infinite; }
+
+.float {
+  position: fixed;
+  bottom: -2rem;
+  z-index: 8;
+  pointer-events: none;
+  font-size: var(--s, 20px);
+  animation: drift var(--d, 9s) linear forwards;
+}
+@keyframes drift {
+  to { transform: translate(var(--x, 0), -110vh) rotate(25deg); opacity: 0.2; }
+}
+
+/* ---------- balloons (original float animation kept) ---------- */
+#magicCursor { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; }
+.balloons {
+  --b: clamp(34px, 6vw, 56px);
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  overflow: hidden;
+  pointer-events: none;
+}
+.balloon {
+  position: absolute;
+  bottom: -120px;
+  width: var(--b);
+  height: calc(var(--b) * 1.3);
+  border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+  box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.15), inset 5px 5px 10px rgba(255, 255, 255, 0.55);
+  animation: floatUp 10s infinite linear;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.balloon.popped { visibility: hidden; pointer-events: none; }
+.balloon::before {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: calc(var(--b) * 0.4);
+  width: calc(var(--b) * 0.2);
+  height: calc(var(--b) * 0.2);
+  background-color: inherit;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+.balloon::after {
+  content: "";
+  position: absolute;
+  bottom: calc(var(--b) * -1.2);
+  left: calc(var(--b) * 0.48);
+  width: 1px;
+  height: calc(var(--b) * 1.2);
+  background-color: rgba(255, 255, 255, 0.45);
+}
+.balloon1 { background-color: #ff8fb8; left: 12%; animation-duration: 12s; animation-delay: 1s; }
+.balloon2 { background-color: #f7d9a0; left: 30%; animation-duration: 15s; animation-delay: 3s; }
+.balloon3 { background-color: #ffc2d9; left: 52%; animation-duration: 13s; animation-delay: 0s; }
+.balloon4 { background-color: #d8b4fe; left: 72%; animation-duration: 16s; animation-delay: 2s; }
+.balloon5 { background-color: #fff0f6; left: 86%; animation-duration: 14s; animation-delay: 5s; }
+.balloon6 { background-color: #f06292; left: 4%;  animation-duration: 17s; animation-delay: 7s; }
+.balloon7 { background-color: #ffb3d4; left: 42%; animation-duration: 18s; animation-delay: 9s; }
+
+@keyframes floatUp {
+  0%   { transform: translateY(0) rotate(-3deg); }
+  50%  { transform: translateY(-50vh) rotate(3deg); }
+  100% { transform: translateY(-110vh) rotate(-3deg); }
+}
+
+@media (max-width: 480px) {
+  .btns button { flex: 1 1 40%; }
+  .text { padding-bottom: 2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .star, .flag, .float, .text h1 { animation: none; }
+}
+
+/* ---------- intro screen (needed so browsers allow sound) ---------- */
+body.wait :not(.intro, .intro *),
+body.wait :not(.intro, .intro *)::before,
+body.wait :not(.intro, .intro *)::after { animation-play-state: paused !important; }
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.8rem;
+  padding: 1rem;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(255, 140, 200, 0.35), transparent 60%),
+    linear-gradient(170deg, #2e0f33, #5c1f52 60%, #8c3a72);
+  transition: opacity 0.9s, visibility 0.9s;
+}
+.intro.gone { opacity: 0; visibility: hidden; }
+.intro h2 { margin: 0; font: 400 clamp(2.6rem, 11vw, 4.4rem) "Great Vibes", cursive; color: var(--blush); text-shadow: 0 0 22px rgba(255, 143, 184, 0.8); }
+.i-small { margin: 0; font-size: 0.95rem; opacity: 0.8; }
+.intro button {
+  padding: 0.9rem 2rem;
+  font: 600 1.1rem "Quicksand", sans-serif;
+  color: #fff;
+  background: linear-gradient(135deg, #ff8fb8, #f06292);
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 8px 30px rgba(240, 98, 146, 0.55);
+  cursor: pointer;
+  animation: beat 1.6s ease-in-out infinite;
+}
+.intro button:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+@keyframes beat { 50% { transform: scale(1.07); } }
